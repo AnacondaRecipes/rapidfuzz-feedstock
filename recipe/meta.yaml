@@ -28,11 +28,11 @@ requirements:
   host:
     - python
     - pip
-    - numpy   1.19   # [py<310]
-    - numpy   1.21   # [py==310]
-    - numpy   1.23   # [py>=311]
     - setuptools
     - wheel
+    - packaging
+    - scikit-build
+    - numpy {{ numpy }}
   run:
     - python
     - {{ pin_compatible('numpy') }}
