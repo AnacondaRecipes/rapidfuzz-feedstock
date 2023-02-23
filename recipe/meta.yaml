@@ -26,12 +26,13 @@ requirements:
     - patch        # [not win]
     - m2-match     # [win]
   host:
-    - pip
     - python
-    - scikit-build
-    - wheel
+    - pip
+    - numpy   1.19   # [py<310]
+    - numpy   1.21   # [py==310]
+    - numpy   1.23   # [py>=311]
     - setuptools
-    - numpy
+    - wheel
   run:
     - python
     - {{ pin_compatible('numpy') }}
