@@ -8,26 +8,30 @@ package:
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 8d3e252d4127c79b4d7c2ae47271636cbaca905c8bb46d80c7930ab906cf4b5c
+  patches:
+    - cmake_verfix.patch
 
 build:
   number: 0
   skip: True  # [py<37]
-  script:
-    - {{ PYTHON }} -m pip install . -vv --no-deps
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - cmake
-    - make
-    - python
+    - make         # [not win]
+    - ninja-base   # [win]
+    - cython
+    - patch        # [not win]
+    - m2-match     # [win]
   host:
     - pip
     - python
     - scikit-build
     - wheel
     - setuptools
+    - numpy
   run:
     - python
     - {{ pin_compatible('numpy') }}
