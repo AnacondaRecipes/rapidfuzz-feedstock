@@ -26,7 +26,7 @@ requirements:
     - ninja-base   # [win]
     - cython
     - patch        # [not win]
-    - m2-match     # [win]
+    - m2-patch     # [win]
   host:
     - python
     - pip
