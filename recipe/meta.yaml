@@ -1,5 +1,5 @@
 {% set name = "rapidfuzz" %}
-{% set version = "1.9.1" %}
+{% set version = "2.13.7" %}
 
 package:
   name: {{ name|lower }}
@@ -7,13 +7,13 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: bd7a4fe33ba49db3417f0f57a8af02462554f1296dedcf35b026cd3525efef74
+  sha256: 8d3e252d4127c79b4d7c2ae47271636cbaca905c8bb46d80c7930ab906cf4b5c
+  patches:
+    - cmake_verfix.patch
 
 build:
   number: 0
   skip: True  # [py<37]
-  script:
-    - {{ PYTHON }} -m pip install . -vvv
   missing_dso_whitelist:  # [s390x]
     - '$RPATH/ld64.so.1'  # [s390x]
 
@@ -21,14 +21,20 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - cmake
+    - make         # [not win]
+    - ninja-base   # [win]
+    - cython
+    - patch        # [not win]
+    - m2-patch     # [win]
   host:
     - python
     - pip
-    - numpy   1.19   # [py<310]
-    - numpy   1.21   # [py==310]
-    - numpy   1.23   # [py>=311]
     - setuptools
     - wheel
+    - packaging
+    - scikit-build
+    - numpy {{ numpy }}
   run:
     - python
     - {{ pin_compatible('numpy') }}
@@ -36,6 +42,7 @@ requirements:
 test:
   imports:
     - rapidfuzz
+    - rapidfuzz.distance
   requires:
     - pip
   commands:

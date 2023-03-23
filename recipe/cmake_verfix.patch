@@ -1,0 +1,13 @@
+Index: work/CMakeLists.txt
+===================================================================
+--- work.orig/CMakeLists.txt
++++ work/CMakeLists.txt
+@@ -41,7 +41,7 @@ else()
+   set(Python_ARTIFACTS_INTERACTIVE TRUE)
+   find_package(
+     Python
+-    COMPONENTS Interpreter Development.Module
++    COMPONENTS Interpreter Development
+     REQUIRED)
+ endif()
+ 
