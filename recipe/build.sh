@@ -9,5 +9,5 @@ export CMAKE_INSTALL_PREFIX=${PREFIX}
 export CMAKE_INSTALL_LIBDIR=lib
 export CMAKE_PROGRAM_PATH="${BUILD_PREFIX}/bin;${PREFIX}/bin"
 
-$PYTHON -m pip install . -vvv --no-deps
+$PYTHON -m pip install . -vv --no-deps --no-build-isolation
 

@@ -6,5 +6,5 @@ set CMAKE_BUILD_TYPE=Release
 set CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX%
 set CMAKE_INSTALL_LIBDIR=%LIBRARY_LIB%
 
-%PYTHON% -m pip install . -vv --no-deps
+%PYTHON% -m pip install . -vv --no-deps --no-build-isolation
 
