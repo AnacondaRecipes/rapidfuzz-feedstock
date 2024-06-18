@@ -1,5 +1,5 @@
 {% set name = "rapidfuzz" %}
-{% set version = "3.5.2" %}
+{% set version = "3.9.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/rapidfuzz-{{ version }}.tar.gz
-  sha256: 9e9b395743e12c36a3167a3a9fd1b4e11d92fb0aa21ec98017ee6df639ed385e
+  sha256: b398ea66e8ed50451bce5997c430197d5e4b06ac4aa74602717f792d8d8d06e2
   patches:
     - cmake_verfix.patch
 
@@ -29,10 +29,10 @@ requirements:
   host:
     - python
     - pip
-    - setuptools
+    - setuptools >=42
     - wheel
     - scikit-build
-    - cython
+    - cython >=3.0.9,<3.1.0
   run:
     - python
     - numpy
@@ -47,14 +47,14 @@ test:
     - pip check
 
 about:
-  home: https://github.com/maxbachmann/RapidFuzz
+  home: https://github.com/rapidfuzz/RapidFuzz
   license: MIT
   license_family: MIT
   license_file: LICENSE
   summary: rapid fuzzy string matching
   description: Rapid fuzzy string matching in Python using various string metrics
-  dev_url: https://github.com/maxbachmann/RapidFuzz
-  doc_url: https://maxbachmann.github.io/RapidFuzz/
+  dev_url: https://github.com/rapidfuzz/RapidFuzz
+  doc_url: https://rapidfuzz.github.io/RapidFuzz
 
 extra:
   recipe-maintainers:
