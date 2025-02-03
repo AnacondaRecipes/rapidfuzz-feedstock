@@ -5,6 +5,7 @@ set CMAKE_PREFIX_PATH=%LIBRARY_PREFIX%
 set CMAKE_BUILD_TYPE=Release
 set CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX%
 set CMAKE_INSTALL_LIBDIR=%LIBRARY_LIB%
+set CMAKE_GENERATOR=Ninja
 
 %PYTHON% -m pip install . -vv --no-deps --no-build-isolation
 
