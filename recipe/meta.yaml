@@ -1,32 +1,32 @@
 {% set name = "rapidfuzz" %}
-{% set version = "3.12.1" %}
+{% set version = "3.14.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/rapidfuzz-{{ version }}.tar.gz
-  sha256: 6a98bbca18b4a37adddf2d8201856441c26e9c981d8895491b5bc857b5f780eb
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/rapidfuzz-{{ version }}.tar.gz
+  sha256: b02850e7f7152bd1edff27e9d584505b84968cacedee7a734ec4050c655a803c
 
 build:
   number: 0
-  skip: True  # [py<39]
+  skip: true  # [py<310]
   missing_dso_whitelist:  # [s390x]
-    - '$RPATH/ld64.so.1'  # [s390x]
+    - $RPATH/ld64.so.1  # [s390x]
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - cmake
-    - make         # [not win]
-    - ninja-base   # [win]
+    - make  # [not win]
+    - ninja-base  # [win]
   host:
     - python
     - pip
     - cython >=3.0.11,<3.1.0
-    - scikit-build-core >=0.10.7
+    - scikit-build-core >=0.11
   run:
     - python
     - numpy
