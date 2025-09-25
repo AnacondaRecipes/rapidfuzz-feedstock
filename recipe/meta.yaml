@@ -12,11 +12,10 @@ source:
 build:
   number: 0
   skip: true  # [py<310]
-  missing_dso_whitelist:  # [s390x]
-    - $RPATH/ld64.so.1  # [s390x]
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - cmake
@@ -25,20 +24,43 @@ requirements:
   host:
     - python
     - pip
-    - cython >=3.0.11,<3.1.0
+    - cython >=3.0.12,<3.2.0
     - scikit-build-core >=0.11
   run:
     - python
     - numpy
 
 test:
+  source_files: tests
   imports:
     - rapidfuzz
+    - rapidfuzz._common_py
+    - rapidfuzz._feature_detector
+    - rapidfuzz._utils
     - rapidfuzz.distance
+    - rapidfuzz.distance._initialize_cpp
+    - rapidfuzz.distance._initialize_py
+    - rapidfuzz.distance.DamerauLevenshtein_py
+    - rapidfuzz.distance.Hamming_py
+    - rapidfuzz.distance.Indel_py
+    - rapidfuzz.distance.Jaro_py
+    - rapidfuzz.distance.JaroWinkler_py
+    - rapidfuzz.distance.LCSseq_py
+    - rapidfuzz.distance.Levenshtein_py
+    - rapidfuzz.distance.OSA_py
+    - rapidfuzz.distance.Postfix_py
+    - rapidfuzz.distance.Prefix_py
+    - rapidfuzz.fuzz
+    - rapidfuzz.process_cpp_impl
+    - rapidfuzz.utils
   requires:
     - pip
+    - pytest
+    - hypothesis
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests
 
 about:
   home: https://github.com/maxbachmann/RapidFuzz
@@ -48,7 +70,7 @@ about:
   summary: rapid fuzzy string matching
   description: Rapid fuzzy string matching in Python using various string metrics
   dev_url: https://github.com/maxbachmann/RapidFuzz
-  doc_url: https://maxbachmann.github.io/RapidFuzz/
+  doc_url: https://maxbachmann.github.io/RapidFuzz
 
 extra:
   recipe-maintainers:
