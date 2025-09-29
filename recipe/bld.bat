@@ -5,6 +5,5 @@ set CMAKE_PREFIX_PATH=%LIBRARY_PREFIX%
 set CMAKE_BUILD_TYPE=Release
 set CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX%
 set CMAKE_INSTALL_LIBDIR=%LIBRARY_LIB%
-set CMAKE_GENERATOR="Visual Studio 17 2022"
 
 %PYTHON% -m pip install . -vv --no-deps --no-build-isolation
