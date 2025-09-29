@@ -20,7 +20,6 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - make  # [not win]
-    - ninja-base  # [win]
   host:
     - python
     - pip
