@@ -18,7 +18,7 @@ requirements:
     - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - cmake
+    - cmake >=3.15
     - make  # [not win]
   host:
     - python
@@ -27,7 +27,6 @@ requirements:
     - scikit-build-core >=0.11
   run:
     - python
-    - numpy
 
 test:
   source_files: tests
