@@ -1,44 +1,64 @@
 {% set name = "rapidfuzz" %}
-{% set version = "3.12.1" %}
+{% set version = "3.14.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/rapidfuzz-{{ version }}.tar.gz
-  sha256: 6a98bbca18b4a37adddf2d8201856441c26e9c981d8895491b5bc857b5f780eb
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/rapidfuzz-{{ version }}.tar.gz
+  sha256: b02850e7f7152bd1edff27e9d584505b84968cacedee7a734ec4050c655a803c
 
 build:
   number: 0
-  skip: True  # [py<39]
-  missing_dso_whitelist:  # [s390x]
-    - '$RPATH/ld64.so.1'  # [s390x]
+  skip: true  # [py<310]
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - cmake
-    - make         # [not win]
-    - ninja-base   # [win]
+    - cmake >=3.15
+    - make  # [not win]
   host:
     - python
     - pip
-    - cython >=3.0.11,<3.1.0
-    - scikit-build-core >=0.10.7
+    - cython >=3.0.12,<3.2.0
+    - scikit-build-core >=0.11
   run:
     - python
-    - numpy
 
 test:
+  source_files: tests
   imports:
     - rapidfuzz
+    - rapidfuzz._common_py
+    - rapidfuzz._feature_detector
+    - rapidfuzz._utils
     - rapidfuzz.distance
+    - rapidfuzz.distance._initialize_cpp
+    - rapidfuzz.distance._initialize_py
+    - rapidfuzz.distance.DamerauLevenshtein_py
+    - rapidfuzz.distance.Hamming_py
+    - rapidfuzz.distance.Indel_py
+    - rapidfuzz.distance.Jaro_py
+    - rapidfuzz.distance.JaroWinkler_py
+    - rapidfuzz.distance.LCSseq_py
+    - rapidfuzz.distance.Levenshtein_py
+    - rapidfuzz.distance.OSA_py
+    - rapidfuzz.distance.Postfix_py
+    - rapidfuzz.distance.Prefix_py
+    - rapidfuzz.fuzz
+    - rapidfuzz.process_cpp_impl
+    - rapidfuzz.utils
   requires:
     - pip
+    - pytest
+    - hypothesis
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests
 
 about:
   home: https://github.com/maxbachmann/RapidFuzz
@@ -48,7 +68,7 @@ about:
   summary: rapid fuzzy string matching
   description: Rapid fuzzy string matching in Python using various string metrics
   dev_url: https://github.com/maxbachmann/RapidFuzz
-  doc_url: https://maxbachmann.github.io/RapidFuzz/
+  doc_url: https://maxbachmann.github.io/RapidFuzz
 
 extra:
   recipe-maintainers:
